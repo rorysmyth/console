@@ -1,0 +1,101 @@
+<div ng-controller="controlPanel as controlPanelCtrl" id="controls" ng-class="{'open': controlPanelCtrl.openKeypad}" >
+   
+    <!-- main controls -->
+    <div class="main-controls">
+      <div class="right">
+        <div class="option small device"></div>
+        <div class="option small status"></div>
+        <div ng-click="controlPanelCtrl.openKeypad = !controlPanelCtrl.openKeypad" class="option small keypad"></div>
+      </div>
+      <div class="left">
+        <div class="option active-number">American Support</div>
+      </div>
+    </div>
+    <!-- main controls -->
+
+    <div ng-show="controlPanelCtrl.openKeypad" class="keypad-popout">
+      
+      <div class="input phone">
+        <input type="text" value="+1">
+      </div>
+      
+      <div id="keypad">
+          
+          <div class="row">
+            <div class="key">
+              <div class="number">1</div>
+              <div class="alpha"></div>
+            </div>
+      
+            <div class="key">
+              <div class="number">2</div>
+              <div class="alpha">abc</div>
+            </div>
+      
+            <div class="key">
+              <div class="number">3</div>
+              <div class="alpha">def</div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="key">
+              <div class="number">4</div>
+              <div class="alpha">ghi</div>
+            </div>
+      
+            <div class="key">
+              <div class="number">5</div>
+              <div class="alpha">jkl</div>
+            </div>
+      
+            <div class="key">
+              <div class="number">6</div>
+              <div class="alpha">mno</div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="key">
+              <div class="number">7</div>
+              <div class="alpha">pqrs</div>
+            </div>
+      
+            <div class="key">
+              <div class="number">8</div>
+              <div class="alpha">tuv</div>
+            </div>
+      
+            <div class="key">
+              <div class="number">9</div>
+              <div class="alpha">wxyz</div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="key">
+              <div class="number">*</div>
+              <div class="alpha"></div>
+            </div>
+      
+            <div class="key">
+              <div class="number">0</div>
+              <div class="alpha">+</div>
+            </div>
+      
+            <div class="key">
+              <div class="number">#</div>
+              <div class="alpha"></div>
+            </div>
+          </div>
+      
+      </div>
+      
+        
+      <div class="call-action">
+        <button class="btn keypad call">Call</button>
+      </div>
+
+    </div>
+
+</div>

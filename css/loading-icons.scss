@@ -1,0 +1,29 @@
+.loading-icon {
+	&:nth-child(2),
+	&:nth-child(3),{
+		// margin-left: 0px;
+	}
+}
+
+$time: 0;
+@for $i from 1 through 3 {
+	span.loading-#{$i}{
+		$d : 6px;
+		display:inline-block;
+		border-radius:$d/2;
+		width:$d;
+		height:$d;
+		background:$green;
+		-webkit-animation: loadingIcon 0.6s linear #{$time+0.3}s infinite alternate;
+		$time: $time + 0.3;
+	}
+}
+
+@-webkit-keyframes loadingIcon {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

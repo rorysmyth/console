@@ -1,0 +1,27 @@
+.grid-3 {
+	width:100%;
+	.item {
+		display: inline-block;
+		float:left;
+		width: calc((100% - 20px)/3);
+		margin-left:10px;
+		min-height: 1px;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+}
+
+.grid-2 {
+	width:100%;
+	.item {
+		display: inline-block;
+		float:left;
+		width: calc((100% - 20px)/2);
+		margin-left:10px;
+		min-height: 1px;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+}

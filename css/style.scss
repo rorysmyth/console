@@ -1,0 +1,86 @@
+$border: #ddd;
+
+@import 'reset';
+@import 'colors';
+@import 'controls';
+@import 'keypad';
+@import 'buttons';
+@import 'call-growl';
+@import 'grid';
+@import 'loading-icons';
+
+a {
+	text-decoration:none;
+}
+
+.box {
+	-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
+	border:1px solid $border;
+	background:#fff;
+	border-radius:4px;
+
+	&.active {
+		border: 1px solid $green;
+	}
+
+	&.hold {
+		border: 1px solid $red;
+	}
+
+}
+
+.clear {
+	
+	&:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+
+}
+
+.row {
+	width:100%;
+	@extend .clear;
+}
+
+body {
+	background: #f5f5f5;
+	font-family:"Proxima Nova";
+	width:320px;
+	color:#555;
+}
+
+
+input {
+	width:100%;
+	padding:8px 0;
+	color:#555;
+	font-size:14px;
+	border:1px solid #ddd;
+	border-radius:4px;
+}
+
+.input {
+	@extend .clear;
+	&.phone {
+		input {
+			text-indent:50px;
+		}
+		position: relative;
+		&:after {
+			position: absolute;
+			top:12px;
+			left:20px;
+			display: block;
+			width: 16px;
+			height: 16px;
+			background:url('/img/United-States.png') center center no-repeat;
+		}
+	}
+}
+
+
+

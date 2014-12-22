@@ -1,0 +1,101 @@
+.call-growl {
+
+	margin-top:10px;
+	@extend .clear;
+	font-size:13px;
+	padding-bottom:20px;
+	
+	.top {
+
+		padding: 0 20px;
+		@extend .row;
+		a {
+			color:$blue;
+			font-weight: 600;
+		}
+		.left,
+		.middle,
+		.right {
+			display: inline-block;
+			float:left;
+			line-height: 40px;
+			width: 33%;
+			min-height:1px;
+		}
+		.left {
+			text-align: left;
+		}
+		.middle {
+			text-align: center;
+		}
+		.right {
+			text-align: right;
+		}
+
+		.timer {
+			color:$green;
+			.time {
+				font-weight: 600;
+			}
+		}
+
+		.ticket-number {}
+
+		.status {
+			color:$green;
+			font-weight: 600;
+		}
+
+	}
+
+	.caller-main-info {
+		position: relative;
+		background:#f8f8f8;
+		text-align: center;
+		padding:20px 0;
+		h2 {
+			font-size: 15px;
+			font-weight: 600;
+			color:#333;
+			margin-top: 5px;
+		}
+		h3 {
+			margin-top: 5px;
+			color:#999;
+		}
+		.mic {
+			position: absolute;
+			background:url('/img/mic-on.png') center center no-repeat;
+			display: block;
+			width: 17px;
+			height: 17px;
+			bottom:10px;
+			right:20px;
+		}
+	}
+
+	.caller-secondary-info {
+		text-align: center;
+		padding:20px 0;
+		h4 {
+			font-weight: 600;
+			color:#333;
+		}
+		h5 {
+			margin-top: 5px;
+			color:#999;
+		}
+	}
+
+	.call-controls {
+		width: 100%;
+		padding:0 20px;
+	}
+
+	&.outgoing {
+		.caller-secondary-info {
+			padding-bottom:0;
+		}
+	}
+
+}

@@ -1,0 +1,58 @@
+@mixin button-background($bg, $border) {
+
+	background: $bg;
+	border: 1px solid $border;
+ 	
+ 	&:hover {
+
+
+		@if $bg == #fff {
+			background:#f9f9f9;
+		} @else {
+			background:darken($bg, 5);
+		}
+ 		
+ 	}
+
+}
+
+.btn {
+	
+
+	border:none;
+	border-radius:4px;
+	width:100%;
+	line-height:25px;
+	font-size:13px;
+	font-weight:400;
+	color:#555;
+
+	@include button-background(#fff, #ddd);
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.keypad {
+		&.call {
+			@include button-background($green,$green);
+			color:white;
+		}
+	}
+
+	&.red {
+		@include button-background($red,$red);
+		color:white;
+	}
+
+	&.green {
+		@include button-background($green,$green);
+		color:white;
+	}
+
+	&.black {
+		@include button-background(#333,#333);
+		color:white;
+	}
+
+}

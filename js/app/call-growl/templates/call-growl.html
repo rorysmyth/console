@@ -1,0 +1,78 @@
+<div class="call-growl box"	
+	ng-class="{
+		'outgoing': type == 'outgoing',
+		'active': type == 'incoming',
+	}"
+>
+	
+	<div class="top">
+		<div class="left">
+			<span ng-show="type == 'outgoing'" class="status">
+				Calling
+				<span class="loading-icon loading-1"></span>
+				<span class="loading-icon loading-2"></span>
+				<span class="loading-icon loading-3"></span>
+			</span>
+			
+			<span ng-show="type == 'incoming'" class="status">
+				Incoming
+				<span class="loading-icon loading-1"></span>
+				<span class="loading-icon loading-2"></span>
+				<span class="loading-icon loading-3"></span>
+			</span>
+
+			<span ng-show="type == 'in-call'" class="ticket-number">ticket <a href="#">#1234</a></span>
+		</div>
+
+		<div class="middle">
+			
+		</div>
+
+		<div class="right">
+			<span ng-show="type == 'incoming'" class="timer">answer in <span class="time">00:12</span></span>
+			<span ng-show="type == 'in-call'" class="timer">duration <span class="time">00:00</span></span>
+		</div>
+	</div>
+
+
+	<div class="caller-main-info">
+		<div class="logo">
+			<img src="/img/nat-geo.png">
+		</div>
+		<h2>National Geographic</h2>
+		<h3>Frank Underwood</h3>
+		<div class="mic"></div>
+	</div>
+
+	<div class="caller-secondary-info">
+		<h4>+1 (415) 895-2947</h5>
+		<h5 ng-show="type == 'incoming' || type == 'in-call'">CA, United States</h5>
+	</div>
+
+	<div ng-hide="false" class="call-controls">
+
+		<div ng-show="type == 'in-call'" class="grid-3 button-test">
+			<div class="item">
+				<button class="btn red">end</button>
+			</div>
+			<div class="item">
+				<button class="btn">hold</button>
+			</div>
+			<div class="item">
+				<button class="btn">transfer</button>
+			</div>
+		</div>
+
+		<div ng-show="type == 'incoming'" class="grid-2 button-test">
+			<div class="item">
+				<button class="btn black">decline</button>
+			</div>
+			<div class="item">
+				<button ng-click="type = 'in-call' " class="btn green">answer</button>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>

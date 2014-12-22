@@ -1,0 +1,324 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+#controls .option {
+  display: inline-block;
+  float: left;
+  line-height: 40px; }
+  #controls .option.small {
+    width: 40px;
+    height: 40px;
+    border-left: 1px solid #ddd; }
+  #controls .option.active-number {
+    padding-left: 20px;
+    font-size: 13px;
+    color: #333;
+    font-weight: 600;
+    width: 100%; }
+  #controls .option.device {
+    background: url("/img/globe.png") center center no-repeat; }
+  #controls .option.status {
+    background: url("/img/status-online.png") center center no-repeat; }
+  #controls .option.keypad {
+    background: url("/img/keypad.png") center center no-repeat; }
+  #controls .option:hover {
+    background-color: #f9f9f9;
+    cursor: pointer; }
+#controls .main-controls {
+  height: auto;
+  overflow: hidden; }
+  #controls .main-controls .right {
+    max-width: 120px;
+    float: right; }
+  #controls .main-controls .left {
+    float: none;
+    width: auto;
+    overflow: hidden;
+    border-bottom: none; }
+#controls .input.phone {
+  margin: 20px; }
+#controls .call-action {
+  padding: 20px 30px; }
+#controls .keypad-popout {
+  display: none; }
+#controls.open .keypad-popout {
+  display: block; }
+#controls.open .main-controls .left .active-number {
+  -webkit-box-shadow: inset 0px -1px 0px 0px #ddd; }
+#controls.open .option.device, #controls.open .option.status {
+  -webkit-box-shadow: inset 0px -1px 0px 0px #ddd; }
+#controls.in-call .option.status, #controls.in-call .option.device {
+  display: none; }
+
+#keypad {
+  padding: 0 30px; }
+  #keypad .key {
+    display: inline-block;
+    width: 33%;
+    float: left;
+    text-align: center; }
+  #keypad .row:first-child, #keypad .call-growl .top:first-child, .call-growl #keypad .top:first-child {
+    margin-top: 0; }
+  #keypad .row, #keypad .call-growl .top, .call-growl #keypad .top {
+    margin-top: 13px; }
+  #keypad .number {
+    font-weight: 600;
+    color: #555;
+    font-size: 17px; }
+  #keypad .alpha {
+    font-weight: 200;
+    color: #AAA;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-top: 5px; }
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  line-height: 25px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #555;
+  background: #fff;
+  border: 1px solid #ddd; }
+  .btn:hover {
+    background: #f9f9f9; }
+  .btn:hover {
+    cursor: pointer; }
+  .btn.keypad.call {
+    background: #77a500;
+    border: 1px solid #77a500;
+    color: white; }
+    .btn.keypad.call:hover {
+      background: #658b00; }
+  .btn.red {
+    background: #D32525;
+    border: 1px solid #D32525;
+    color: white; }
+    .btn.red:hover {
+      background: #bd2121; }
+  .btn.green {
+    background: #77a500;
+    border: 1px solid #77a500;
+    color: white; }
+    .btn.green:hover {
+      background: #658b00; }
+  .btn.black {
+    background: #333;
+    border: 1px solid #333;
+    color: white; }
+    .btn.black:hover {
+      background: #262626; }
+
+.call-growl {
+  margin-top: 10px;
+  font-size: 13px;
+  padding-bottom: 20px; }
+  .call-growl .top {
+    padding: 0 20px; }
+    .call-growl .top a {
+      color: #358FB2;
+      font-weight: 600; }
+    .call-growl .top .left,
+    .call-growl .top .middle,
+    .call-growl .top .right {
+      display: inline-block;
+      float: left;
+      line-height: 40px;
+      width: 33%;
+      min-height: 1px; }
+    .call-growl .top .left {
+      text-align: left; }
+    .call-growl .top .middle {
+      text-align: center; }
+    .call-growl .top .right {
+      text-align: right; }
+    .call-growl .top .timer {
+      color: #77a500; }
+      .call-growl .top .timer .time {
+        font-weight: 600; }
+    .call-growl .top .status {
+      color: #77a500;
+      font-weight: 600; }
+  .call-growl .caller-main-info {
+    position: relative;
+    background: #f8f8f8;
+    text-align: center;
+    padding: 20px 0; }
+    .call-growl .caller-main-info h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin-top: 5px; }
+    .call-growl .caller-main-info h3 {
+      margin-top: 5px;
+      color: #999; }
+    .call-growl .caller-main-info .mic {
+      position: absolute;
+      background: url("/img/mic-on.png") center center no-repeat;
+      display: block;
+      width: 17px;
+      height: 17px;
+      bottom: 10px;
+      right: 20px; }
+  .call-growl .caller-secondary-info {
+    text-align: center;
+    padding: 20px 0; }
+    .call-growl .caller-secondary-info h4 {
+      font-weight: 600;
+      color: #333; }
+    .call-growl .caller-secondary-info h5 {
+      margin-top: 5px;
+      color: #999; }
+  .call-growl .call-controls {
+    width: 100%;
+    padding: 0 20px; }
+  .call-growl.outgoing .caller-secondary-info {
+    padding-bottom: 0; }
+
+.grid-3 {
+  width: 100%; }
+  .grid-3 .item {
+    display: inline-block;
+    float: left;
+    width: calc((100% - 20px)/3);
+    margin-left: 10px;
+    min-height: 1px; }
+    .grid-3 .item:first-child {
+      margin-left: 0; }
+
+.grid-2 {
+  width: 100%; }
+  .grid-2 .item {
+    display: inline-block;
+    float: left;
+    width: calc((100% - 20px)/2);
+    margin-left: 10px;
+    min-height: 1px; }
+    .grid-2 .item:first-child {
+      margin-left: 0; }
+
+span.loading-1 {
+  display: inline-block;
+  border-radius: 3px;
+  width: 6px;
+  height: 6px;
+  background: #77a500;
+  -webkit-animation: loadingIcon 0.6s linear 0.3s infinite alternate; }
+
+span.loading-2 {
+  display: inline-block;
+  border-radius: 3px;
+  width: 6px;
+  height: 6px;
+  background: #77a500;
+  -webkit-animation: loadingIcon 0.6s linear 0.6s infinite alternate; }
+
+span.loading-3 {
+  display: inline-block;
+  border-radius: 3px;
+  width: 6px;
+  height: 6px;
+  background: #77a500;
+  -webkit-animation: loadingIcon 0.6s linear 0.9s infinite alternate; }
+
+@-webkit-keyframes loadingIcon {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+a {
+  text-decoration: none; }
+
+.box, #controls {
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px; }
+  .box.active, .active#controls {
+    border: 1px solid #77a500; }
+  .box.hold, .hold#controls {
+    border: 1px solid #D32525; }
+
+.clear:after, #controls:after, .call-growl:after, .row:after, .call-growl .top:after, .input:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+.row, .call-growl .top {
+  width: 100%; }
+
+body {
+  background: #f5f5f5;
+  font-family: "Proxima Nova";
+  width: 320px;
+  color: #555; }
+
+input {
+  width: 100%;
+  padding: 8px 0;
+  color: #555;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px; }
+
+.input.phone {
+  position: relative; }
+  .input.phone input {
+    text-indent: 50px; }
+  .input.phone:after {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url("/img/United-States.png") center center no-repeat; }

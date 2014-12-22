@@ -1,0 +1,99 @@
+#controls {
+
+	@extend .clear;
+	@extend .box;
+
+	.option {
+		display: inline-block;
+		float:left;
+		line-height: 40px;
+		&.small {
+			width: 40px;
+			height: 40px;
+			border-left:1px solid $border;
+		}
+		&.active-number {
+			padding-left: 20px;
+			font-size: 13px;
+			color:#333;
+			font-weight: 600;
+			width: 100%;
+		}
+		&.device {
+			background: url('/img/globe.png') center center no-repeat;
+		}
+		&.status {
+			background: url('/img/status-online.png') center center no-repeat;
+		}
+		&.keypad {
+			background: url('/img/keypad.png') center center no-repeat;
+		}
+		&:hover {
+			background-color:#f9f9f9;
+			cursor:pointer;
+		}
+	}
+
+	.main-controls {
+	   height: auto;
+	   overflow: hidden;
+		.right {
+		    max-width: 120px;
+		    float: right;
+		    
+		}
+		.left {
+		    float: none;
+		    width: auto;
+		    overflow: hidden;
+		    border-bottom:none;
+		}
+	}
+		    
+
+	.input.phone {
+		margin:20px;
+	}
+
+	.call-action {
+		padding:20px 30px;
+	}
+
+	.keypad-popout {
+		display: none;
+	}
+
+	&.open {
+
+		.keypad-popout {
+			display: block;
+		}
+
+		.main-controls {
+			.left {
+				.active-number {
+					-webkit-box-shadow: inset 0px -1px 0px 0px #ddd;
+				}
+			}
+		}
+
+		.option {
+			&.device,
+			&.status {
+				-webkit-box-shadow: inset 0px -1px 0px 0px #ddd;
+			}
+		}
+
+	}
+
+	&.in-call {
+		.option {
+			&.status,
+			&.device {
+				display: none;
+			}
+		}
+	}
+
+
+}
