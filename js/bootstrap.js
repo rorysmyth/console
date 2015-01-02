@@ -62,24 +62,25 @@ $(function(){
 
 	var app = new Bootstrap;
 	app
+		.addService([
+			'conductor'
+		])
 		.addComponent({
 			dir:'control-panel',
 			controllers: ['control-panel'],
-			directives: []
+			directives: ['control-panel']
 		})
 		.addComponent({
 			dir:'call-growl',
 			controllers: ['call-growl'],
 			directives: ['call-growl']
 		})
+		.addComponent({
+			dir:'call-worker',
+			controllers: ['call-worker'],
+			directives: []
+		})
 		.bootStrap();
 
-	// .addService([
-	// 		'connection',
-	// 		'node',
-	// 		'shapes',
-	// 		'orientation',
-	// 		'render',
-	// 	])	
 
 });

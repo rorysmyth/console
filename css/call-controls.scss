@@ -1,0 +1,49 @@
+#call-controls {
+  	h2 {
+	  @include weight(semibold);
+	  padding:15px 0 3px 0;
+	}
+  	width:350px;
+	padding:0px 30px 30px 30px;
+	font-size: 13px;
+	position: absolute;
+	top:0;
+	left:0;
+
+  	table {
+	  color:#fff;
+	  background: #2c2c2c;
+	  width: 100%;
+	  text-align: left;
+	  padding:10px;
+	  border-radius: 5px;
+	  tr {
+		td:first-child {
+		  width: 30%;
+		  padding:3px 20px;
+		  color: #93749f;
+		  @include weight(semibold)
+		}
+		&:last-child {
+			td {
+			  padding-bottom: 15px;
+			}
+		}
+		&:first-child {
+		  td {
+			padding-top: 15px;
+		  }
+		}
+	  }
+	  td {
+		color: #648358;
+		@include weight(semibold);
+		&.orange {
+		  color: #c37533;
+		}
+		&.blue {
+		  color: #6790a1;
+		}
+	  }
+	}
+}

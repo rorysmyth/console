@@ -1,25 +1,36 @@
-<div ng-controller="controlPanel as controlPanelCtrl" id="controls" ng-class="{'open': controlPanelCtrl.openKeypad}" >
-   
+<div id="controls" ng-class="{
+  'more':more == true,
+  'open':more == true,
+  'show-keypad':showKeypad== true,
+  }" >
+
     <!-- main controls -->
     <div class="main-controls">
       <div class="right">
-        <div class="option small device"></div>
-        <div class="option small status"></div>
-        <div ng-click="controlPanelCtrl.openKeypad = !controlPanelCtrl.openKeypad" class="option small keypad"></div>
+        <div ng-show="state == null " class="option small device"></div>
+        <div ng-show="state == null " class="option small status"></div>
+        <div ng-click="moreAction()" ng-show="state == 'in-call' || state == null" class="option small more"></div>
       </div>
       <div class="left">
-        <div class="option active-number">American Support</div>
+        <div class="option active-number">American Support v2</div>
       </div>
     </div>
     <!-- main controls -->
 
-    <div ng-show="controlPanelCtrl.openKeypad" class="keypad-popout">
-      
-      <div class="input phone">
-        <input type="text" value="+1">
+    <div class="more-controls">
+
+
+      <div class="row search">
+        <div class="input phone">
+          <input type="text" value="+1">
+        </div>
+        <div class="expand-keypad-control">
+          <span ng-click="showKeypad = !showKeypad">keypad</span>
+        </div>
       </div>
+
       
-      <div id="keypad">
+      <div id="keypad" ng-class="{'small':showKeypad == false, 'large': showKeypad == true}">
           
           <div class="row">
             <div class="key">
@@ -93,7 +104,7 @@
       
         
       <div class="call-action">
-        <button class="btn keypad call">Call</button>
+        <button ng-click="call()" class="btn keypad call">Call</button>
       </div>
 
     </div>

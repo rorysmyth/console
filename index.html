@@ -7,12 +7,103 @@
 </head>
 <body>
 
+<div class="wrapper">
 
-<div ng-include="'js/app/control-panel/views/control-panel.html'"></div>
-<div ng-include="'js/app/call-growl/views/call-growl.html'"></div>
+	<div ng-controller="controlPanelController">
+		<control-panel active="keypad.active" state="keypad.state"></control-panel>
+	</div>
 
+	<div ng-controller="callGrowlController">
+		<!-- the incoming caller -->
+		<call-growl adjust="adjustMinimizedOffset()" caller="outgoing"></call-growl>
+		<call-growl adjust="adjustMinimizedOffset()" caller="incoming"></call-growl>
+	</div>
+
+</div>
+
+<div ng-controller="callWorkerController" id="call-controls">
+
+	<h2>Incoming Call</h2>
+	<table>
+		<tbody>
+		<tr>
+			<td>name</td>
+			<td>{{conductor.incoming.name}}</td>
+		</tr>
+		<tr>
+			<td>min</td>
+			<td class="orange">{{conductor.incoming.min}}</td>
+		</tr>
+		<tr>
+			<td>state</td>
+			<td class="orange">{{conductor.incoming.state}} <span ng-if="conductor.incoming.state === null">null</span> </td>
+		</tr>
+		<tr>
+			<td>z</td>
+			<td class="blue">
+				<span ng-if="conductor.incoming.z === 1">top</span>
+				<span ng-if="conductor.incoming.z === 0">bottom</span>
+			</td>
+		</tr>
+		<tr>
+			<td>y</td>
+			<td>{{conductor.incoming.y}}px</td>
+		</tr>
+
+		<tr>
+			<td>
+				call
+			</td>
+			<td>
+				<button ng-click="callsYou(incoming)">Calls you</button>
+			</td>
+		</tr>
+
+		</tbody>
+	</table>
+
+	<h2>Outgoing Call</h2>
+	<table>
+		<tbody>
+		<tr>
+			<td>name</td>
+			<td>{{conductor.outgoing.name}}</td>
+		</tr>
+		<tr>
+			<td>min</td>
+			<td class="orange">{{conductor.outgoing.min}}</td>
+		</tr>
+		<tr>
+			<td>state</td>
+			<td class="orange">{{conductor.outgoing.state}} <span ng-if="conductor.outgoing.state === null">null</span></td>
+		</tr>
+		<tr>
+			<td>z</td>
+			<td class="blue">
+				<span ng-if="conductor.outgoing.z === 1">top</span>
+				<span ng-if="conductor.outgoing.z === 0">bottom</span>
+			</td>
+		</tr>
+		<tr>
+			<td>y</td>
+			<td>{{conductor.outgoing.y}}px</td>
+		</tr>
+		<tr>
+			<td>call</td>
+			<td>
+				<button ng-click="answers(outgoing)">Answers</button>
+			</td>
+		</tr>
+
+		</tbody>
+	</table>
+
+	<button style="margin-top:20px" ng-click="togglePanel()">Toggle Panel Visibility</button>
+
+</div>
 
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/gsap/src/minified/TweenMax.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 <script src="/bower_components/angularjs/angular.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.7/angular-animate.js

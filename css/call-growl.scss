@@ -1,67 +1,133 @@
+div[ng-controller="callGrowlController"]{
+  position: relative;
+  top:10px;
+}
 .call-growl {
 
-	margin-top:10px;
+  	position: absolute;
 	@extend .clear;
 	font-size:13px;
-	padding-bottom:20px;
-	
+	-webkit-transition: background-color 0.3s, top 0.3s;
+
+  	&.min {
+	  cursor:pointer;
+	}
+
+	.basic {
+	  position: absolute;
+	  left:0;
+	  right:0;
+	  top:0;
+	  bottom:0;
+	  background: #fff;
+	  .inner {
+		position: absolute;
+		bottom:0;
+		left:0;
+		right:0;
+		line-height: 40px;
+		margin:0 20px;
+	  }
+	  .name {
+		@include weight(semibold)
+	  }
+	  .state {
+		float:right;
+	  }
+		&.on-hold {
+		  .name {
+			opacity:0.5;
+		  }
+		  .state {
+			color: $red;
+		  }
+		}
+		&.in-call {
+		  .state {
+		  	color:$green;
+		  }
+		}
+		&.outgoing {
+		  .state {
+		  	color:$green;
+		  }
+		}
+	}
+
 	.top {
+
+		-webkit-transition: height 0.3s;
+
+		&.small {
+			height: 30px;
+		}
 
 		padding: 0 20px;
 		@extend .row;
+		
 		a {
 			color:$blue;
 			font-weight: 600;
 		}
-		.left,
-		.middle,
-		.right {
-			display: inline-block;
-			float:left;
-			line-height: 40px;
-			width: 33%;
-			min-height:1px;
-		}
-		.left {
-			text-align: left;
-		}
-		.middle {
-			text-align: center;
-		}
-		.right {
-			text-align: right;
-		}
 
-		.timer {
-			color:$green;
-			.time {
-				font-weight: 600;
-			}
-		}
+		$h:55px;
+		line-height: $h;
+		height: $h;
 
-		.ticket-number {}
+		text-align: center;
+		position: relative;
 
 		.status {
+			position: absolute;
+			top:0;
+			left:0;
 			color:$green;
-			font-weight: 600;
+			@include weight(regular);
+			width: 100%;
+			.on-hold-duration {
+				color:$red;
+				.time {
+					@include weight(semibold)
+				}
+			}
 		}
 
 	}
 
+	img {
+		-webkit-transition: 0.3s;
+	}
+
+	@-webkit-keyframes onHoldLogo {
+		0% {
+			-webkit-transform: scale(1)
+		}
+		100% {
+			-webkit-transform: scale(1.2)
+		}
+	}
+
+	.dim {
+		opacity: 0.6;
+		img {
+			-webkit-filter: saturate(0);
+			-webkit-animation: onHoldLogo 1s linear 0s infinite alternate;
+		}
+	}
+
 	.caller-main-info {
 		position: relative;
-		background:#f8f8f8;
 		text-align: center;
-		padding:20px 0;
 		h2 {
-			font-size: 15px;
-			font-weight: 600;
+			@include weight(semibold);
 			color:#333;
-			margin-top: 5px;
+			margin-top: 15px;
 		}
 		h3 {
+			font-weight: 200;
+			color:#333;
 			margin-top: 5px;
-			color:#999;
+			opacity: 0.7;
 		}
 		.mic {
 			position: absolute;
@@ -69,27 +135,62 @@
 			display: block;
 			width: 17px;
 			height: 17px;
-			bottom:10px;
+			top:0px;
 			right:20px;
+			padding:15px;
+			border:1px solid white;
+			border-radius:4px;
+			cursor:pointer;
+			&:hover {
+				border:1px solid $border;
+				background-color:#f7f7f7;
+			}
+			&.off {
+				background-image:url('/img/mic-off.png');
+			}
 		}
 	}
 
-	.caller-secondary-info {
+	.regular {
+		font-size: 80px;
+	}
+
+	.answer-in,
+	.ticket-no,
+	.call-finished-info {
 		text-align: center;
-		padding:20px 0;
-		h4 {
-			font-weight: 600;
-			color:#333;
+		padding-top:20px;
+		font-size: 15px;
+		@include weight(regular);
+	}
+	
+	.ticket-no {
+		font-size: 13px;
+		a {
+			@include weight(semibold);
 		}
-		h5 {
-			margin-top: 5px;
-			color:#999;
+	}
+
+	.call-finished-info {
+		font-size: 13px;
+		.time {
+			color:$green;
+			@include weight(semibold);
 		}
 	}
 
 	.call-controls {
 		width: 100%;
 		padding:0 20px;
+		margin-bottom: 20px;
+		margin-top: 20px;
+		.actions-container {
+			height:32px;
+			position: relative;
+			.actions {
+				position: absolute
+			}
+		}
 	}
 
 	&.outgoing {
@@ -98,4 +199,65 @@
 		}
 	}
 
+	&.incoming {
+		h2,h3,h4,h5,span, .status{
+			color:#fff;
+		}
+	}
+
+	&.in-call,
+	{
+		.caller-main-info {
+			// margin-top: 30px;
+		}
+	}
+
+	&.on-hold {
+
+	}
+
+}
+
+
+.actions.on-hold,
+.actions.in-call,
+.actions.incoming,
+.actions.outgoing,
+.mic,
+.top.status,
+{
+	
+	-webkit-transition:0.2s linear all;
+
+	/* 
+		Hide me!
+	*/
+		
+		// start
+		&.ng-hide-add {
+			display:block!important;
+			opacity: 1;
+			-webkit-transform:scale(1);
+		}
+		// end
+		&.ng-hide-add-active {
+			opacity:0;
+			-webkit-transform:scale(0.5);
+		}
+
+	/* 
+		Show me!
+	*/
+		
+		// start
+		&.ng-hide-remove {
+			display:block!important;
+			-webkit-transform:scale(0.5);
+			opacity: 0;
+		}
+		// end
+		&.ng-hide-remove-active {
+			-webkit-transform:scale(1);
+			opacity: 1;
+		}
 }

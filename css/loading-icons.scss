@@ -1,7 +1,14 @@
 .loading-icon {
+	background:$green;
+	&.white {
+		background:#fff;
+	}
+	&:first-child {
+		margin-left: 10px;
+	}
 	&:nth-child(2),
 	&:nth-child(3),{
-		// margin-left: 0px;
+		margin-left: -2px;
 	}
 }
 
@@ -13,7 +20,6 @@ $time: 0;
 		border-radius:$d/2;
 		width:$d;
 		height:$d;
-		background:$green;
 		-webkit-animation: loadingIcon 0.6s linear #{$time+0.3}s infinite alternate;
 		$time: $time + 0.3;
 	}

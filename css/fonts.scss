@@ -1,0 +1,14 @@
+@mixin weight($weight) {
+	@if $weight == 'thin' {
+		font-weight:100;
+	}
+	@if $weight == 'light' {
+		font-weight:300;
+	}
+	@if $weight == 'regular' {
+		font-weight:400;
+	}
+	@if $weight == 'semibold' {
+		font-weight:600;
+	}
+}

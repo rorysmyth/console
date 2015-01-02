@@ -1,78 +1,111 @@
-<div class="call-growl box"	
+<div ng-click="togglePosition()" ng-show="caller.state" class="call-growl box"
 	ng-class="{
-		'outgoing': type == 'outgoing',
-		'active': type == 'incoming',
+		'outgoing': caller.state == 'outgoing',
+		'incoming': caller.state == 'incoming',
+		'in-call': caller.state == 'in-call',
+		'on-hold': caller.state == 'on-hold',
+		'hold': caller.state == 'on-hold' || mic.volume == false,
+		'min': caller.min == true
 	}"
+
+	ng-style="{'z-index': caller.z}"
 >
-	
-	<div class="top">
-		<div class="left">
-			<span ng-show="type == 'outgoing'" class="status">
-				Calling
-				<span class="loading-icon loading-1"></span>
-				<span class="loading-icon loading-2"></span>
-				<span class="loading-icon loading-3"></span>
-			</span>
-			
-			<span ng-show="type == 'incoming'" class="status">
-				Incoming
-				<span class="loading-icon loading-1"></span>
-				<span class="loading-icon loading-2"></span>
-				<span class="loading-icon loading-3"></span>
-			</span>
 
-			<span ng-show="type == 'in-call'" class="ticket-number">ticket <a href="#">#1234</a></span>
-		</div>
+	<div class="top" ng-class="{'small': caller.state == 'in-call'}" >
 
-		<div class="middle">
-			
-		</div>
+		<span class="status" ng-show="caller.state == 'call-finished' ">
+			<span class="call-finished-info">duration: <span class="time">00:15</span></span>
+		</span>
 
-		<div class="right">
-			<span ng-show="type == 'incoming'" class="timer">answer in <span class="time">00:12</span></span>
-			<span ng-show="type == 'in-call'" class="timer">duration <span class="time">00:00</span></span>
-		</div>
+		<span class="status" ng-show="caller.state == 'on-hold' ">
+			<span class="on-hold-duration">on hold for: <span class="time">00:32</span></span>
+		</span>
+
+		<span class="status" ng-show="caller.state == 'outgoing'">
+			Calling
+			<span class="loading-icon loading-1"></span>
+			<span class="loading-icon loading-2"></span>
+			<span class="loading-icon loading-3"></span>
+		</span>
+
+		<span class="status" ng-show="caller.state == 'incoming'">
+			Incoming call
+			<span class="loading-icon white loading-1"></span>
+			<span class="loading-icon white loading-2"></span>
+			<span class="loading-icon white loading-3"></span>
+		</span>
+
 	</div>
 
-
-	<div class="caller-main-info">
+	<div ng-class="{'dim': caller.state == 'on-hold'}" class="caller-main-info">
 		<div class="logo">
 			<img src="/img/nat-geo.png">
 		</div>
-		<h2>National Geographic</h2>
-		<h3>Frank Underwood</h3>
-		<div class="mic"></div>
+		<h2>{{caller.company}} ({{caller.name}})</h2>
+		<h3>+1 (415) 895-2947 &middot; <span ng-show="caller.state == 'incoming' || caller.state == 'in-call' || caller.state == 'on-hold' ">CA, United caller.states</span> </h3>
+		<div ng-class="{'off': mic.volume == false}" ng-click="mic.volume = !mic.volume" ng-show="caller.state == 'in-call'" class="mic"></div>
 	</div>
 
-	<div class="caller-secondary-info">
-		<h4>+1 (415) 895-2947</h5>
-		<h5 ng-show="type == 'incoming' || type == 'in-call'">CA, United States</h5>
+	<div ng-show="caller.state == 'incoming'" class="answer-in">
+		<span>00:12</span>
 	</div>
 
-	<div ng-hide="false" class="call-controls">
+	<div ng-show="caller.state == 'in-call' || caller.state == 'on-hold' || caller.state == 'call-finished' " class="ticket-no">
+		<span>ticket <a href="#">#1234</a></span>
+	</div>
 
-		<div ng-show="type == 'in-call'" class="grid-3 button-test">
-			<div class="item">
-				<button class="btn red">end</button>
+	<div class="call-controls">
+
+		<div class="actions-container">
+
+			<div class="grid-3 actions in-call" ng-show="caller.state == 'in-call' ">
+				<div class="item">
+					<button ng-click="caller.state = 'call-finished'; mic.volume = true" class="btn red">hang up</button>
+				</div>
+				<div class="item">
+					<button ng-click="caller.state = 'on-hold'" class="btn">hold</button>
+				</div>
+				<div class="item">
+					<button class="btn">transfer</button>
+				</div>
 			</div>
-			<div class="item">
-				<button class="btn">hold</button>
+
+			<div class="grid-1 actions on-hold" ng-show="caller.state == 'on-hold' ">
+				<div class="item">
+					<button ng-click="caller.state = 'in-call'" class="btn">resume call</button>
+				</div>
 			</div>
-			<div class="item">
-				<button class="btn">transfer</button>
+
+			<div class="grid-1 actions call-finished" ng-show="caller.state == 'call-finished' ">
+				<div class="item">
+					<button ng-click="available()" class="btn">available to take new calls</button>
+				</div>
 			</div>
+
+			<div class="grid-1 actions outgoing" ng-show="caller.state == 'outgoing' ">
+				<div class="item">
+					<button ng-click="caller.state = 'call-finished'; mic.volume = true " class="btn red">hang up</button>
+				</div>
+			</div>
+
+			<div class="grid-2 actions incoming" ng-show="caller.state == 'incoming' ">
+				<div class="item">
+					<button ng-click="decline()" class="btn green-on-green">decline</button>
+				</div>
+				<div class="item">
+					<button ng-click="caller.state = 'in-call';  " class="btn black">answer</button>
+				</div>
+			</div>
+
 		</div>
 
-		<div ng-show="type == 'incoming'" class="grid-2 button-test">
-			<div class="item">
-				<button class="btn black">decline</button>
-			</div>
-			<div class="item">
-				<button ng-click="type = 'in-call' " class="btn green">answer</button>
-			</div>
+	</div>
+
+	<div ng-show="caller.min == true" class="basic" ng-class="{'in-call': caller.state == 'in-call','on-hold': caller.state == 'on-hold', 'outgoing': caller.state == 'outgoing'}">
+		<div class="inner">
+			<span class="name">{{caller.name}}</span>
+			<span class="state" >{{caller.state}}</span>
 		</div>
-
-
 	</div>
 
 </div>

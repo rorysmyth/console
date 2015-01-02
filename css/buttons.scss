@@ -2,16 +2,35 @@
 
 	background: $bg;
 	border: 1px solid $border;
+	-webkit-transition: background-color 0.3s;
  	
  	&:hover {
 
-
 		@if $bg == #fff {
+
 			background:#f9f9f9;
+
+		} @elseif $bg == $green-on-green {
+
+			$color: lighten($green-on-green, 2);
+				background:$color;
+				border: 1px solid $color;
+
 		} @else {
+
 			background:darken($bg, 5);
+
 		}
  		
+ 	}
+
+ 	&.big {
+ 		-webkit-transform:scale(1.1);
+ 	}
+
+ 	&.small {
+ 		-webkit-transform:scale(0.95);
+ 		opacity: 0.6
  	}
 
 }
@@ -47,6 +66,17 @@
 
 	&.green {
 		@include button-background($green,$green);
+		color:white;
+	}
+
+
+	&.green-on-green {
+		@include button-background($green-on-green,$green-on-green);
+		color:white;
+	}
+
+	&.green-on-green-transparent {
+		@include button-background(transparent,$green-on-green);
 		color:white;
 	}
 

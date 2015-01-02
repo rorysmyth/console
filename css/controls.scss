@@ -3,9 +3,33 @@
 	@extend .clear;
 	@extend .box;
 
+  	max-height: 40px;
+  	overflow: hidden;
+  	-webkit-transition: max-height  0.3s;
+
+  	&.more {
+	  max-height:170px;
+	}
+
+  	&.show-keypad {
+	  max-height: 360px;
+	}
+
+	#keypad {
+	  -webkit-transition: max-height 0.3s;
+	  overflow: hidden;
+		&.small {
+		  max-height: 0px;
+		}
+		&.large{
+		  max-height: 190px;
+		}
+	}
+
 	.option {
 		display: inline-block;
 		float:left;
+		line-height: 40px;
 		line-height: 40px;
 		&.small {
 			width: 40px;
@@ -25,7 +49,7 @@
 		&.status {
 			background: url('/img/status-online.png') center center no-repeat;
 		}
-		&.keypad {
+		&.more {
 			background: url('/img/keypad.png') center center no-repeat;
 		}
 		&:hover {
@@ -34,6 +58,7 @@
 		}
 	}
 
+	// number status etc go here
 	.main-controls {
 	   height: auto;
 	   overflow: hidden;
@@ -51,23 +76,40 @@
 	}
 		    
 
-	.input.phone {
-		margin:20px;
+  	.row.search {
+		padding:20px;
+	  .input.phone,
+	  .expand-keypad-control {
+		display: inline-block;
+		float:left;
+	  }
+		.input.phone {
+			width: 80%;
+		}
+		.expand-keypad-control {
+			width: 20%;
+		}
+
 	}
 
 	.call-action {
-		padding:20px 30px;
+		padding:0px 20px 20px 20px;
 	}
 
-	.keypad-popout {
-		display: none;
-	}
+//	#keypad {
+//	  max-height: 0px;
+//	  overflow: hidden;
+//	}
+
+//	.more-controls {
+//		display: none;
+//	}
 
 	&.open {
 
-		.keypad-popout {
-			display: block;
-		}
+//		.more-controls {
+//			display: block;
+//		}
 
 		.main-controls {
 			.left {
@@ -86,14 +128,52 @@
 
 	}
 
-	&.in-call {
-		.option {
-			&.status,
-			&.device {
-				display: none;
-			}
+//	&.in-call {
+//		.option {
+//			&.status,
+//			&.device {
+//				display: none;
+//			}
+//		}
+//	}
+
+
+}
+
+
+#controls .right .option {
+	
+	-webkit-transition:0.2s linear all;
+
+	/* 
+		Hide me!
+	*/
+		
+		// start
+		&.ng-hide-add {
+			display:block!important;
+			opacity: 1;
+			-webkit-transform:scale(1);
 		}
-	}
+		// end
+		&.ng-hide-add-active {
+			opacity:0;
+			-webkit-transform:scale(0.5);
+		}
 
-
+	/* 
+		Show me!
+	*/
+		
+		// start
+		&.ng-hide-remove {
+			display:block!important;
+			-webkit-transform:scale(0.5);
+			opacity: 0;
+		}
+		// end
+		&.ng-hide-remove-active {
+			-webkit-transform:scale(1);
+			opacity: 1;
+		}
 }
