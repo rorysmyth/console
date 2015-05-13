@@ -1,3 +1,4 @@
+//TODO something
 app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($log, $timeout, conductorService) {
     return {
         templateUrl: '/js/app/call-growl/templates/call-growl.html',
@@ -11,6 +12,11 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
             $scope.keypad = conductorService.keypad;
             $scope.incoming = conductorService.incoming;
             $scope.outgoing = conductorService.outgoing;
+
+            $scope.transfer = {
+                incoming: {hold:true},
+                outgoing: {hold:false}
+            }
 
             TweenLite.set(iElm, {y: -350, opacity: 0})
 
@@ -46,7 +52,7 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
 
 
             $scope.decline = function () {
-                this.slideOutRight();
+                this.shrinkOut();
                 $timeout(function () {
                     $scope.resetDefaultState();
                 }, 300);
@@ -56,7 +62,113 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
                 $scope.caller.state = null;
                 $scope.keypad.state = null;
             };
-            
+
+
+            /**
+             * transfer hold button
+             */
+            $scope.transferHold = function(pressed){
+
+                var bottom = $scope.transfer.incoming;
+                var top = $scope.transfer.outgoing;
+                
+                if(top.hold ==  false && bottom.hold == true){
+
+                    $log.log("first");
+
+                    if(pressed == 'bottom'){
+                        bottom.hold = false;
+                        top.hold = true;
+                    }
+
+                    if(pressed == 'top'){
+                        top.hold = true;
+                        bottom.hold = true;
+                    }
+
+                }else if(top.hold ==  true && bottom.hold == false){
+
+                    $log.log("second");
+
+                    if(pressed == 'bottom'){
+                        $log.log("here");
+                        bottom.hold = true;
+                    }
+
+                    if(pressed == 'top'){
+                        top.hold = false;
+                        bottom.hold = true;
+                    }
+
+                } else if(top.hold ==  true && bottom.hold == true ){
+
+                    $log.log("third");
+
+                    if(pressed == 'bottom'){
+                        bottom.hold = false;
+                    }
+
+                    if(pressed == 'top'){
+                        top.hold = false;
+                    }
+
+                }
+                
+
+
+                //if($scope.transfer.incoming.hold == true && $scope.transfer.outgoing.hold == true && type == 'outgoing'){
+                //    $scope.transfer.outgoing.hold = false
+                //}
+                //
+                //if($scope.transfer.incoming.hold == true && $scope.transfer.outgoing.hold == true && type == 'incoming'){
+                //    $scope.transfer.incoming.hold = false
+                //}
+
+
+            }
+
+            /**
+             * end call
+             */
+            $scope.endCall = function(){
+
+                // slide the call out of view
+                // if its transfer, remove min of the incoming
+                // wati until the animation is finished
+                // reset the state
+                //
+                $scope.removeMinStates()
+                $scope.shrinkOut();
+                $scope.incoming.y = 0;
+                $scope.outgoing.y = 0;
+                $timeout(function(){
+                    $scope.caller.state = null
+                },300)
+
+            }
+
+            /**
+             * initiate a transfer
+             */
+            $scope.startTransfer = function() {
+                $scope.caller.state = "on-hold-transfer";
+                $scope.keypad.more = true;
+            };
+
+            /**
+             * cancel a transfer
+             */
+            $scope.cancelTransfer = function() {
+
+                $scope.caller.state = "in-call";
+                $scope.keypad.more = false;
+
+                if($scope.outgoing.state != null){
+                    $scope.outgoing.state = null;
+                }
+
+            };
+
 
             /**
              * when user clicked on minimized voice growl
@@ -91,7 +203,20 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
                 $scope.$broadcast('min.changed')
 
             };
-            
+
+            /**
+             * swap the min state
+             * @param {object} makeSmall call object put on bottom
+             * @param {object} makeBig call object put on top
+             */
+            $scope.removeMinStates = function(){
+
+                $scope.incoming.min = false;
+                $scope.outgoing.min = false;
+
+            };
+
+
             $scope.$on('min.changed', function(){
                 $scope.adjustMinimizedOffset()
             });
@@ -106,7 +231,7 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
             }, function(newVal, oldVal){
 
                 if($scope.incoming.state != null && $scope.outgoing.state != null){
-                    TweenLite.to(iElm,0.3,{ease:Back.easeInOut, y:newVal})
+                    TweenLite.to(iElm,0.6,{ease:Back.easeInOut.config(3), y:newVal})
                 }
 
             }, true)
@@ -147,9 +272,23 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
                         $scope.incoming.y = 0;
                     }
 
-                },300)
+                },250)
 
             };
+
+            /**
+             * flip the dim on transfet
+             */
+            $scope.dimSwtich = function(){
+
+            }
+
+            /**
+             * Transfer accepts call
+             */
+            $scope.transferAccepts = function(){
+                $scope.caller.state = 'transfer-connected'
+            }
 
             /**
              *
@@ -159,39 +298,44 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
                 if ($scope.incoming.state != null && $scope.outgoing.state != null){
                     return true;
                 }
-            }
+            };
 
             /**
              * @param {Number} duration The length of the animation.
              */
             $scope.slideOutRight = function () {
-                TweenLite.to(iElm, 0.3, {y: 100, opacity: 0})
-                TweenLite.set(iElm, {y: -350})
+                var tl = new TimelineMax();
+                tl.to(iElm, 0.3, {x: 100, ease:Power2.easeOut, opacity: 0})
+                tl.set(iElm, {x: 0})
             };
 
             /**
              * @param {Number} duration The length of the animation.
              */
             $scope.shrinkOut = function () {
-                TweenLite.to(iElm, 0.3, {scale: 0.7, opacity: 0})
-                TweenLite.set(iElm, {y: -350, scale: 1})
+                var tl = new TimelineMax();
+                tl.to(iElm, 0.3, {scale: 0.7, ease:Power2.easeOut, opacity: 0})
+                tl.set(iElm, {y: -350, scale: 1})
             };
 
             /**
              * @param {Number} duration The length of the animation.
              */
             $scope.slideUp = function () {
-                TweenLite.to(iElm, 0.3, {y: -350, opacity: 0})
+                TweenLite.to(iElm, 0.3, {y: -350, ease:Power2.easeOut, opacity: 0})
             };
 
             /**
              * @param {Number} duration The length of the animation.
              */
             $scope.slideDown = function () {
-                TweenLite.to(iElm, 0.3, {y: 0, opacity: 1})
+                TweenLite.to(iElm, 0.3, {y: 0, ease:Power2.easeOut, opacity: 1})
             };
 
 
+            /**
+             * watch state
+             */
             $scope.$watch(function () {
                 
                 return $scope.caller.state
@@ -216,17 +360,25 @@ app.directive('callGrowl', ['$log', '$timeout', 'conductorService', function ($l
                     $scope.adjustMinimizedOffset()
                 }
 
+                if(newVal == 'outgoing-transfer'){
+                    $log.log("transfer");
+                    $timeout(function(){
+                        if($scope.caller.state == 'outgoing-transfer'){
+                            $log.log("still transfer");
+                            $scope.transferAccepts()
+                        }
+                    },1000)
+                }
+
             }, true);
+
 
             $scope.$watch(function () {
                 
                 return $scope.keypad.active
                 
             }, function (newVal, oldVal) {
-                /*
-                 if the keypad.active == false && the call state is null animate it up
-                 if the keypad.active == true && the call state is null animate it down
-                 */
+
                 if ($scope.caller.state != null && $scope.caller.state != 'incoming') {
                     if (newVal == true) {
                         $scope.slideDown();

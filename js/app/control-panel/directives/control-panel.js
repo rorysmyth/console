@@ -5,11 +5,11 @@ app.directive('controlPanel', function($log, conductorService, $timeout){
 		replace:true,
 		scope: {
 			state : "=",
-			active: '='
+			active: '=',
+			more: '='
 		},
 		link: function($scope, iElm, iAttrs, controller) {
 
-			$scope.more = false; // shows user search
 			$scope.showKeypad = false; // shows keypad
 			$scope.incoming = conductorService.incoming; // the incoming call
 			$scope.outgoing = conductorService.outgoing; // the outgoing call
@@ -35,6 +35,8 @@ app.directive('controlPanel', function($log, conductorService, $timeout){
 			// set it off canvas
 			TweenLite.set(iElm, {y:-90})
 
+			
+			
 
 			/*
 			watch the outgoing calls
@@ -53,6 +55,10 @@ app.directive('controlPanel', function($log, conductorService, $timeout){
 				}
 
 				if(outgoing.state == 'in-call'){
+					$scope.state = 'in-call';
+				}
+
+				if(outgoing.state == 'in-transfer'){
 					$scope.state = 'in-call';
 				}
 
@@ -139,17 +145,12 @@ app.directive('controlPanel', function($log, conductorService, $timeout){
 			}
 
 			$scope.call = function (){
-				/*
-				is there another call going on at the moment?
-				if there is, then this is a transfer
-				if there isn't then this is a simple outgoing call
-				if it's a simple outgoing call, then animate it in to show the state
-				if it's a transfer,
-				 */
+
 				$scope.hideAll();
+
 				$timeout(function(){
-					$scope.outgoing.state = 'outgoing'
-				},150)
+					$scope.incoming.state = 'outgoing-transfer'
+				},250)
 
 			}
 

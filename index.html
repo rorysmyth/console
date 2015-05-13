@@ -5,12 +5,12 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css">
 </head>
-<body>
+<body background>
 
 <div class="wrapper">
 
 	<div ng-controller="controlPanelController">
-		<control-panel active="keypad.active" state="keypad.state"></control-panel>
+		<control-panel more="keypad.more" active="keypad.active" state="keypad.state"></control-panel>
 	</div>
 
 	<div ng-controller="callGrowlController">
@@ -22,6 +22,24 @@
 </div>
 
 <div ng-controller="callWorkerController" id="call-controls">
+
+	<h2>Keypad</h2>
+	<table>
+		<tbody>
+		<tr>
+			<td>active</td>
+			<td>{{conductor.keypad.active}}</td>
+		</tr>
+		<tr>
+			<td>state</td>
+			<td>{{conductor.keypad.state}} <span ng-if="conductor.keypad.state === null">null</span> </td>
+		</tr>
+		<tr>
+			<td>more</td>
+			<td>{{conductor.keypad.more}}</td>
+		</tr>
+		</tbody>
+	</table>
 
 	<h2>Incoming Call</h2>
 	<table>

@@ -80,6 +80,11 @@ $(function(){
 			controllers: ['call-worker'],
 			directives: []
 		})
+		.addComponent({
+			dir:'background',
+			controllers: ['background'],
+			directives: ['background']
+		})
 		.bootStrap();
 
 

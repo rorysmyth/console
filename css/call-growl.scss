@@ -52,6 +52,25 @@ div[ng-controller="callGrowlController"]{
 		  	color:$green;
 		  }
 		}
+	  .logo {
+		$d: 18px;
+		display: inline-block;
+		width: $d;
+		height: $d;
+		margin-top: 10px;
+		float: left;
+		margin-right: 10px;
+		background: center center no-repeat;
+		background-size: contain;
+		border-radius:50%;
+		&.national-geographic {
+		  background-image: url('/img/national-geographic@0.5x.png');
+		}
+		&.zendesk {
+		  background-image: url('/img/zendesk@0.5x.png');
+		}
+
+	  }
 	}
 
 	.top {
@@ -100,69 +119,199 @@ div[ng-controller="callGrowlController"]{
 
 	@-webkit-keyframes onHoldLogo {
 		0% {
-			-webkit-transform: scale(1)
+			-webkit-transform: scale(0.9)
 		}
 		100% {
-			-webkit-transform: scale(1.2)
+			-webkit-transform: scale(1)
 		}
 	}
 
 	.dim {
-		opacity: 0.6;
-		img {
-			-webkit-filter: saturate(0);
-			-webkit-animation: onHoldLogo 1s linear 0s infinite alternate;
-		}
+
+
+	  .logo,
+	  h2,
+	  h3 {
+		  @extend .ease;
+		  opacity: 0.6;
+	  }
+
+	  .logo {
+		  -webkit-filter: saturate(0);
+		  -webkit-animation: onHoldLogo 2s linear 0s infinite alternate;
+	  }
+
 	}
 
-	.caller-main-info {
-		position: relative;
-		text-align: center;
-		h2 {
-			@include weight(semibold);
-			color:#333;
-			margin-top: 15px;
-		}
-		h3 {
-			font-weight: 200;
-			color:#333;
-			margin-top: 5px;
-			opacity: 0.7;
-		}
-		.mic {
-			position: absolute;
-			background:url('/img/mic-on.png') center center no-repeat;
-			display: block;
-			width: 17px;
-			height: 17px;
-			top:0px;
-			right:20px;
-			padding:15px;
-			border:1px solid white;
-			border-radius:4px;
-			cursor:pointer;
-			&:hover {
-				border:1px solid $border;
-				background-color:#f7f7f7;
-			}
-			&.off {
-				background-image:url('/img/mic-off.png');
-			}
-		}
+	.dim-override {
+
+	  .logo,
+	  h2,
+	  h3 {
+		@extend .ease;
+		opacity: 0.6;
+	  }
+
+	  .logo {
+		-webkit-filter: saturate(0);
+		-webkit-animation: onHoldLogo 2s linear 0s infinite alternate;
+	  }
+
 	}
+
+	.dim-override-off {
+
+	  .logo,
+	  h2,
+	  h3 {
+		@extend .ease;
+		opacity: 1;
+	  }
+
+	  .logo {
+		-webkit-filter: saturate(1);
+		-webkit-animation: none;
+	  }
+
+	}
+
+
+
+	  .caller-main-info {
+
+	  position: relative;
+	  text-align: center;
+
+
+
+	  .status {
+		color:$green;
+		margin-top:5px
+	  }
+
+	  .logo {
+		$d: 30px;
+		width: $d;
+		height: $d;
+		margin: 0 auto;
+		border-radius: 50%;
+		background: center center no-repeat;
+		background-size: contain;
+		&.zendesk {
+		  background-image: url('/img/zendesk@0.5x.png');
+		}
+		&.national-geographic {
+		  background-image: url('/img/national-geographic@0.5x.png');
+		}
+	  }
+
+	  h2 {
+		@include weight(semibold);
+		color:#333;
+		margin-top: 15px;
+	  }
+
+	  h3 {
+		font-weight: 200;
+		color:#333;
+		margin-top: 5px;
+		opacity: 0.7;
+	  }
+
+	  .mic {
+
+		position: absolute;
+		background:url('/img/mic-on.png') center center no-repeat;
+		display: block;
+		width: 17px;
+		height: 17px;
+		top:0px;
+		right:20px;
+		padding:15px;
+		border:1px solid white;
+		border-radius:4px;
+		cursor:pointer;
+
+		&:hover {
+		  border:1px solid $border;
+		  background-color:#f7f7f7;
+		}
+
+		&.off {
+			background-image:url('/img/mic-off.png');
+		}
+
+	  }
+
+		&.outgoing-transfer{
+
+		  $h: 107px;
+		  border-bottom: 1px dotted $border;
+		  @extend .ease;
+		  margin-bottom: 30px;
+		  padding-bottom: 30px;
+
+		  /*
+            Hide me!
+        */
+
+		  // start
+		  &.ng-hide-add {
+			display:block!important;
+			opacity: 1;
+			-webkit-transform: scale(1);
+			max-height:$h;
+			margin-bottom: 30px;
+			padding-bottom: 30px;
+		  }
+		  // end
+		  &.ng-hide-add-active {
+			opacity:0;
+			-webkit-transform: scale(0.5);
+			max-height: 0px;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+		  }
+
+		  /*
+            Show me!
+        */
+
+		  // start
+		  &.ng-hide-remove {
+			display:block!important;
+			-webkit-transform:scale(0.5);
+			opacity: 0;
+			max-height:0px;
+			margin:0;
+			padding:0;
+		  }
+		  // end
+		  &.ng-hide-remove-active {
+			-webkit-transform:scale(1);
+			max-height: $h;
+			opacity: 1;
+			margin-bottom: 30px;
+			padding-bottom: 30px;
+		  }
+
+		}
+
+  	}
 
 	.regular {
 		font-size: 80px;
 	}
 
 	.answer-in,
-	.ticket-no,
+
 	.call-finished-info {
 		text-align: center;
 		padding-top:20px;
 		font-size: 15px;
 		@include weight(regular);
 	}
+
 	
 	.ticket-no {
 		font-size: 13px;
@@ -183,15 +332,53 @@ div[ng-controller="callGrowlController"]{
 		width: 100%;
 		padding:0 20px;
 		margin-bottom: 20px;
-		margin-top: 20px;
-		.actions-container {
-			height:32px;
-			position: relative;
-			.actions {
-				position: absolute
-			}
-		}
+		margin-top: 30px;
 	}
+	  .actions-container {
+		@extend .ease;
+		margin-top:10px;
+		height:32px;
+		position: relative;
+
+		.actions {
+		  position: absolute;
+		}
+
+		/********************* Hide me! *********************/
+			// start
+			&.ng-hide-add {
+			  display:block!important;
+			  opacity: 1;
+			  margin-top:10px;
+			  height:32px;
+			}
+			// end
+			&.ng-hide-add-active {
+			  opacity:0;
+			  margin-top:0px;
+			  height:0px;
+			}
+
+		/********************* Hide me! *********************/
+
+
+		/********************* Show me! *********************/
+			// start
+			&.ng-hide-remove {
+			  display:block!important;
+			  opacity:0;
+			  margin-top:0px;
+			  height:0px;
+			}
+			// end
+			&.ng-hide-remove-active {
+			  opacity: 1;
+			  margin-top:10px;
+			  height:32px;
+			}
+		/********************* Show me! *********************/
+
+	  }
 
 	&.outgoing {
 		.caller-secondary-info {
@@ -219,15 +406,20 @@ div[ng-controller="callGrowlController"]{
 }
 
 
+.ease {
+  -webkit-transition:0.3s ease-in-out all;
+}
+
 .actions.on-hold,
 .actions.in-call,
 .actions.incoming,
 .actions.outgoing,
 .mic,
-.top.status,
+.top .status,
+.caller-main-info .actions
 {
 	
-	-webkit-transition:0.2s linear all;
+	@extend .ease;
 
 	/* 
 		Hide me!
@@ -261,3 +453,47 @@ div[ng-controller="callGrowlController"]{
 			opacity: 1;
 		}
 }
+
+
+.answer-in
+{
+
+  @extend .ease;
+
+  /*
+    Hide me!
+*/
+
+  // start
+  &.ng-hide-add {
+	display:block!important;
+	opacity: 1;
+	-webkit-transform: scale(1);
+	max-height:30px;
+  }
+  // end
+  &.ng-hide-add-active {
+	opacity:0;
+	-webkit-transform: scale(0.5);
+	max-height: 0px;
+	padding-top: 0;
+  }
+
+  /*
+    Show me!
+*/
+
+  // start
+  &.ng-hide-remove {
+	display:block!important;
+	-webkit-transform:scale(1);
+	opacity: 0;
+  }
+  // end
+  &.ng-hide-remove-active {
+	-webkit-transform:scale(1);
+	opacity: 1;
+  }
+}
+
+

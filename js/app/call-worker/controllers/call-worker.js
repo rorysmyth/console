@@ -15,7 +15,7 @@ app.controller('callWorkerController', ['$scope','conductorService', function($s
 	}
 
 	$scope.answers = function (caller){
-		caller.state = 'in-call';
+		caller.state = 'in-transfer';
 	}
 
 	$scope.togglePanel = function(){

@@ -49,13 +49,13 @@ table {
 #controls {
   max-height: 40px;
   overflow: hidden;
-  -webkit-transition: max-height  0.3s; }
+  -webkit-transition: max-height 0.3s ease-out; }
   #controls.more {
     max-height: 170px; }
   #controls.show-keypad {
     max-height: 360px; }
   #controls #keypad {
-    -webkit-transition: max-height 0.3s;
+    -webkit-transition: max-height 0.3s ease-out;
     overflow: hidden; }
     #controls #keypad.small {
       max-height: 0px; }
@@ -195,12 +195,12 @@ table {
       -webkit-transform: scale(0.95);
       opacity: 0.6; }
   .btn.red {
-    background: #D32525;
-    border: 1px solid #D32525;
+    background: #c0392b;
+    border: 1px solid #c0392b;
     -webkit-transition: background-color 0.3s;
     color: white; }
     .btn.red:hover {
-      background: #bd2121; }
+      background: #ab3326; }
     .btn.red.big {
       -webkit-transform: scale(1.1); }
     .btn.red.small {
@@ -255,6 +255,8 @@ table {
     .btn.black.small {
       -webkit-transform: scale(0.95);
       opacity: 0.6; }
+  .btn.pressed {
+    background: #f5f5f5; }
 
 div[ng-controller="callGrowlController"] {
   position: relative;
@@ -287,11 +289,25 @@ div[ng-controller="callGrowlController"] {
     .call-growl .basic.on-hold .name {
       opacity: 0.5; }
     .call-growl .basic.on-hold .state {
-      color: #D32525; }
+      color: #c0392b; }
     .call-growl .basic.in-call .state {
       color: #77a500; }
     .call-growl .basic.outgoing .state {
       color: #77a500; }
+    .call-growl .basic .logo {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin-top: 10px;
+      float: left;
+      margin-right: 10px;
+      background: center center no-repeat;
+      background-size: contain;
+      border-radius: 50%; }
+      .call-growl .basic .logo.national-geographic {
+        background-image: url("/img/national-geographic@0.5x.png"); }
+      .call-growl .basic .logo.zendesk {
+        background-image: url("/img/zendesk@0.5x.png"); }
   .call-growl .top {
     -webkit-transition: height 0.3s;
     padding: 0 20px;
@@ -312,24 +328,54 @@ div[ng-controller="callGrowlController"] {
       font-weight: 400;
       width: 100%; }
       .call-growl .top .status .on-hold-duration {
-        color: #D32525; }
+        color: #c0392b; }
         .call-growl .top .status .on-hold-duration .time {
           font-weight: 600; }
   .call-growl img {
     -webkit-transition: 0.3s; }
 @-webkit-keyframes onHoldLogo {
   0% {
-    -webkit-transform: scale(1); }
+    -webkit-transform: scale(0.9); }
   100% {
-    -webkit-transform: scale(1.2); } }
-  .call-growl .dim {
+    -webkit-transform: scale(1); } }
+  .call-growl .dim .logo,
+  .call-growl .dim h2,
+  .call-growl .dim h3 {
     opacity: 0.6; }
-    .call-growl .dim img {
-      -webkit-filter: saturate(0);
-      -webkit-animation: onHoldLogo 1s linear 0s infinite alternate; }
+  .call-growl .dim .logo {
+    -webkit-filter: saturate(0);
+    -webkit-animation: onHoldLogo 2s linear 0s infinite alternate; }
+  .call-growl .dim-override .logo,
+  .call-growl .dim-override h2,
+  .call-growl .dim-override h3 {
+    opacity: 0.6; }
+  .call-growl .dim-override .logo {
+    -webkit-filter: saturate(0);
+    -webkit-animation: onHoldLogo 2s linear 0s infinite alternate; }
+  .call-growl .dim-override-off .logo,
+  .call-growl .dim-override-off h2,
+  .call-growl .dim-override-off h3 {
+    opacity: 1; }
+  .call-growl .dim-override-off .logo {
+    -webkit-filter: saturate(1);
+    -webkit-animation: none; }
   .call-growl .caller-main-info {
     position: relative;
     text-align: center; }
+    .call-growl .caller-main-info .status {
+      color: #77a500;
+      margin-top: 5px; }
+    .call-growl .caller-main-info .logo {
+      width: 30px;
+      height: 30px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: center center no-repeat;
+      background-size: contain; }
+      .call-growl .caller-main-info .logo.zendesk {
+        background-image: url("/img/zendesk@0.5x.png"); }
+      .call-growl .caller-main-info .logo.national-geographic {
+        background-image: url("/img/national-geographic@0.5x.png"); }
     .call-growl .caller-main-info h2 {
       font-weight: 600;
       color: #333;
@@ -356,10 +402,45 @@ div[ng-controller="callGrowlController"] {
         background-color: #f7f7f7; }
       .call-growl .caller-main-info .mic.off {
         background-image: url("/img/mic-off.png"); }
+    .call-growl .caller-main-info.outgoing-transfer {
+      border-bottom: 1px dotted #ddd;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      		  /*
+                  Hide me!
+              */
+      		  /*
+                  Show me!
+              */ }
+      .call-growl .caller-main-info.outgoing-transfer.ng-hide-add {
+        display: block !important;
+        opacity: 1;
+        -webkit-transform: scale(1);
+        max-height: 107px;
+        margin-bottom: 30px;
+        padding-bottom: 30px; }
+      .call-growl .caller-main-info.outgoing-transfer.ng-hide-add-active {
+        opacity: 0;
+        -webkit-transform: scale(0.5);
+        max-height: 0px;
+        margin-bottom: 0px;
+        padding-bottom: 0px; }
+      .call-growl .caller-main-info.outgoing-transfer.ng-hide-remove {
+        display: block !important;
+        -webkit-transform: scale(0.5);
+        opacity: 0;
+        max-height: 0px;
+        margin: 0;
+        padding: 0; }
+      .call-growl .caller-main-info.outgoing-transfer.ng-hide-remove-active {
+        -webkit-transform: scale(1);
+        max-height: 107px;
+        opacity: 1;
+        margin-bottom: 30px;
+        padding-bottom: 30px; }
   .call-growl .regular {
     font-size: 80px; }
   .call-growl .answer-in,
-  .call-growl .ticket-no,
   .call-growl .call-finished-info {
     text-align: center;
     padding-top: 20px;
@@ -378,24 +459,62 @@ div[ng-controller="callGrowlController"] {
     width: 100%;
     padding: 0 20px;
     margin-bottom: 20px;
-    margin-top: 20px; }
-    .call-growl .call-controls .actions-container {
-      height: 32px;
-      position: relative; }
-      .call-growl .call-controls .actions-container .actions {
-        position: absolute; }
+    margin-top: 30px; }
+  .call-growl .actions-container {
+    margin-top: 10px;
+    height: 32px;
+    position: relative;
+    /********************* Hide me! *********************/
+    /********************* Hide me! *********************/
+    /********************* Show me! *********************/
+    /********************* Show me! *********************/ }
+    .call-growl .actions-container .actions {
+      position: absolute; }
+    .call-growl .actions-container.ng-hide-add {
+      display: block !important;
+      opacity: 1;
+      margin-top: 10px;
+      height: 32px; }
+    .call-growl .actions-container.ng-hide-add-active {
+      opacity: 0;
+      margin-top: 0px;
+      height: 0px; }
+    .call-growl .actions-container.ng-hide-remove {
+      display: block !important;
+      opacity: 0;
+      margin-top: 0px;
+      height: 0px; }
+    .call-growl .actions-container.ng-hide-remove-active {
+      opacity: 1;
+      margin-top: 10px;
+      height: 32px; }
   .call-growl.outgoing .caller-secondary-info {
     padding-bottom: 0; }
   .call-growl.incoming h2, .call-growl.incoming h3, .call-growl.incoming h4, .call-growl.incoming h5, .call-growl.incoming span, .call-growl.incoming .status {
     color: #fff; }
+
+.ease, .call-growl .dim .logo,
+.call-growl .dim h2,
+.call-growl .dim h3, .call-growl .dim-override .logo,
+.call-growl .dim-override h2,
+.call-growl .dim-override h3, .call-growl .dim-override-off .logo,
+.call-growl .dim-override-off h2,
+.call-growl .dim-override-off h3, .call-growl .caller-main-info.outgoing-transfer, .call-growl .actions-container, .actions.on-hold,
+.actions.in-call,
+.actions.incoming,
+.actions.outgoing,
+.mic,
+.top .status,
+.caller-main-info .actions, .answer-in {
+  -webkit-transition: 0.3s ease-in-out all; }
 
 .actions.on-hold,
 .actions.in-call,
 .actions.incoming,
 .actions.outgoing,
 .mic,
-.top.status {
-  -webkit-transition: 0.2s linear all;
+.top .status,
+.caller-main-info .actions {
   /* 
   	Hide me!
   */
@@ -407,7 +526,8 @@ div[ng-controller="callGrowlController"] {
   .actions.incoming.ng-hide-add,
   .actions.outgoing.ng-hide-add,
   .mic.ng-hide-add,
-  .top.status.ng-hide-add {
+  .top .status.ng-hide-add,
+  .caller-main-info .actions.ng-hide-add {
     display: block !important;
     opacity: 1;
     -webkit-transform: scale(1); }
@@ -416,7 +536,8 @@ div[ng-controller="callGrowlController"] {
   .actions.incoming.ng-hide-add-active,
   .actions.outgoing.ng-hide-add-active,
   .mic.ng-hide-add-active,
-  .top.status.ng-hide-add-active {
+  .top .status.ng-hide-add-active,
+  .caller-main-info .actions.ng-hide-add-active {
     opacity: 0;
     -webkit-transform: scale(0.5); }
   .actions.on-hold.ng-hide-remove,
@@ -424,7 +545,8 @@ div[ng-controller="callGrowlController"] {
   .actions.incoming.ng-hide-remove,
   .actions.outgoing.ng-hide-remove,
   .mic.ng-hide-remove,
-  .top.status.ng-hide-remove {
+  .top .status.ng-hide-remove,
+  .caller-main-info .actions.ng-hide-remove {
     display: block !important;
     -webkit-transform: scale(0.5);
     opacity: 0; }
@@ -433,7 +555,33 @@ div[ng-controller="callGrowlController"] {
   .actions.incoming.ng-hide-remove-active,
   .actions.outgoing.ng-hide-remove-active,
   .mic.ng-hide-remove-active,
-  .top.status.ng-hide-remove-active {
+  .top .status.ng-hide-remove-active,
+  .caller-main-info .actions.ng-hide-remove-active {
+    -webkit-transform: scale(1);
+    opacity: 1; }
+
+.answer-in {
+  /*
+    Hide me!
+*/
+  /*
+    Show me!
+*/ }
+  .answer-in.ng-hide-add {
+    display: block !important;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    max-height: 30px; }
+  .answer-in.ng-hide-add-active {
+    opacity: 0;
+    -webkit-transform: scale(0.5);
+    max-height: 0px;
+    padding-top: 0; }
+  .answer-in.ng-hide-remove {
+    display: block !important;
+    -webkit-transform: scale(1);
+    opacity: 0; }
+  .answer-in.ng-hide-remove-active {
     -webkit-transform: scale(1);
     opacity: 1; }
 
@@ -2696,15 +2844,19 @@ a {
   a:hover {
     text-decoration: underline; }
 
+button {
+  outline: none;
+  border: none; }
+
 @-webkit-keyframes pulseBorder {
   0% {
     border-color: #ddd; }
   70% {
-    border-color: #D32525; }
+    border-color: #c0392b; }
   100% {
-    border-color: #D32525; } }
+    border-color: #c0392b; } }
 .box, #controls {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   border: 1px solid #ddd;
   background: #fff;
   border-radius: 2px;
@@ -2714,6 +2866,8 @@ a {
   .box.incoming, .incoming#controls {
     background: rgba(119, 165, 0, 0.9);
     border-color: #689800; }
+  .box.muted, .muted#controls {
+    -webkit-animation: pulseBorder 1.2s ease-out 0s infinite alternate; }
 
 .clear:after, #controls:after, .call-growl:after, .grid-3:after, .grid-2:after, .grid-1:after, .row:after, .call-growl .top:after, .input:after {
   content: "";
@@ -2724,7 +2878,8 @@ a {
   width: 100%; }
 
 body {
-  background: #f5f5f5;
+  background: top right no-repeat #f5f5f5;
+  background-image: url("/img/bg-default.jpg");
   font-family: "Proxima Nova";
   color: #555;
   overflow-x: hidden; }
@@ -2732,8 +2887,8 @@ body {
 .wrapper {
   width: 320px;
   position: absolute;
-  top: 30px;
-  right: 30px; }
+  top: 50px;
+  right: 10px; }
 
 input {
   width: 100%;

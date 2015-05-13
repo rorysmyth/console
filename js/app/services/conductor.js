@@ -23,7 +23,8 @@ app.service('conductorService', function($log){
 
 	this.keypad = {
 		active:true,
-		state:null
+		state:null,
+		more: false
 	}
 
 });
